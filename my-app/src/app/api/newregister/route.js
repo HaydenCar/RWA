@@ -1,24 +1,38 @@
-export default async function handler(req, res) {
-    const { email, password, accountType } = req.body;
+import { MongoClient } from 'mongodb';
 
-    if (!email || !password || !accountType) {
-        return res.status(400).json({ error: "Missing required fields." });
-    }
+export async function GET(req, res) {
+  console.log("In the register API");
 
-    const { MongoClient } = require('mongodb');
-    const url = 'mongodb+srv://root:vwuWHyQVPo818AoG@rwa.31tjb.mongodb.net/?retryWrites=true&w=majority&appName=RWA';
-    const client = new MongoClient(url);
-    const dbName = 'RWA'; // database name
+  const { searchParams } = new URL(req.url);
+  const email = searchParams.get('email');
+  const pass = searchParams.get('pass');
 
+  if (!email || !pass) {
+    return Response.json({ success: "false", error: "Missing email or password" });
+  }
 
-    await client.connect();
-    console.log('Connected successfully to server');
+  console.log("Registering user with email:", email);
 
-    const db = client.db(dbName);
-    const collection = db.collection('login');
+  const url = 'mongodb+srv://root:vwuWHyQVPo818AoG@rwa.31tjb.mongodb.net/?retryWrites=true&w=majority&appName=RWA';
+  const client = new MongoClient(url);
+  const dbName = 'RWA';
+  await client.connect();
+  console.log("Connected successfully to the database");
+  const db = client.db(dbName);
+  const collection = db.collection('login');
 
-    await collection.insertOne({ email, password, accountType });
+  // Check if the email already exists
+  const existingUser = await collection.findOne({ username: email });
+  if (existingUser) {
+    console.log("User already exists");
+    return Response.json({ success: "false", error: "Email already registered" });
+  }
 
-    res.status(200).json({ message: "Data inserted successfully" });
+  // Insert the new user
+  await collection.insertOne({ username: email, pass: pass, acc_type: 'customer' });
+  console.log("User registered successfully");
+  return Response.json({ success: "true" });
+
+  await client.close();
 
 }

@@ -1,44 +1,31 @@
 'use client';
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
 export default function Register() {
   const handleSubmit = (event) => {
-    console.log("Handling register submit");
+    console.log("Handling registration submit");
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
     let email = data.get('email');
     let pass = data.get('pass');
-    let accountType = data.get('accountType');
 
-    console.log("Sent email:", email);
-    console.log("Sent pass:", pass);
-    console.log("Sent account type:", accountType);
+    console.log("Registering email:", email);
+    console.log("Registering pass:", pass);
 
-    runDBCallAsync(`http://localhost:3000/api/register`, { email, pass, accountType });
+    runDBCallAsync(`http://localhost:3000/api/newregister?email=${email}&pass=${pass}`);
   };
 
-  async function runDBCallAsync(url, payload) {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
-
+  async function runDBCallAsync(url) {
+    const res = await fetch(url);
     const data = await res.json();
-    if (res.status === 201) {
+    if (data.success === "true") {
       console.log("Registration successful!");
-      window.location = "/dashboard";
+      window.location = "/dashboard"; // Redirect to dashboard
     } else {
       console.log("Registration failed:", data.error);
     }
@@ -66,20 +53,7 @@ export default function Register() {
             label="Password"
             type="password"
             id="pass"
-            autoComplete="new-password"
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="accountType"
-            label="Account Type"
-            name="accountType"
-            autoComplete="accountType"
-          />
-          <FormControlLabel
-            control={<Checkbox value="terms" color="primary" />}
-            label="I agree to the terms and conditions"
+            autoComplete="current-password"
           />
           <Button
             type="submit"
