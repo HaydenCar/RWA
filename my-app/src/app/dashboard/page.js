@@ -19,6 +19,9 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 export default function Page() {
     const [data, setData] = useState(null)
     const [weather, setWeatherData] = useState(0)
@@ -58,49 +61,66 @@ export default function Page() {
     },
     },
     });
+
+    // Map product names to images
+      const getImagePath = (name) => {
+        const imageMap = {
+          "chocolate doughnut": '/chocolateDonut.jpg',
+          "jam doughnut": '/jamDonut.jpg',
+        };
+        return imageMap[name] || '/logo.png'; // Fallback to a default image
+      };
+
     if (!weather) return <p>No weather</p>
     return (
-    <ThemeProvider theme={theme}>
-    <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static">
-            <Toolbar>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Krispy Kreme
-              </Typography>
-              <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
-                              Today's temperature: {JSON.stringify(weather.temp)}
-              </Typography>
-              <Button onClick={() => window.location="/view_cart"} color="inherit">Cart</Button>
-            </Toolbar>
-          </AppBar>
-        </Box>
-        <Container component="main" maxWidth="xs">
-        <div style={{fontSize: '40px'}} > Dashboard</div>
-        <div>
-        {
-        data.map((item, i) => (
-        <div style={{padding: '20px'}} key={i} >
-        Unique ID: {item._id}
-        <br></br>
-        {item.pname}
-        -
-        {item.price}
-        <br></br>
-        <Button onClick={() => putInCart(item.pname)} variant="outlined"> Add to cart </Button>
-        </div>
-        ))
-        }
-        </div>
-        </Container>
-</ThemeProvider>
-);
+        <ThemeProvider theme={theme}>
+          <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="static" sx={{ bgcolor: "green" }}>
+              <Toolbar>
+                <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+                  <img src="/logo.png" alt="Krispy Kreme" width="75" height="75"></img>
+                </IconButton>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                </Typography>
+                <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
+                  Today's temperature: {weather.temp}°C
+                </Typography>
+                <Button onClick={() => window.location = "/view_cart"} color="inherit">
+                  Cart
+                </Button>
+              </Toolbar>
+            </AppBar>
+          </Box>
+          <Container component="main" maxWidth="lg">
+            <Typography variant="h4" gutterBottom sx={{ mt: 4 }}>
+              Dashboard
+            </Typography>
+            <Grid container spacing={3}>
+              {data.map((item, i) => (
+                <Grid item xs={12} sm={6} md={4} key={i}>
+                  <Card sx={{ maxWidth: 345 }}>
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      image={getImagePath(item.pname)} // Dynamically set image
+                      alt={item.pname}
+                    />
+                    <CardContent>
+                      <Typography variant="h6" component="div">
+                        {item.pname}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        €{item.price}
+                      </Typography>
+                      <Button onClick={() => putInCart(item.pname)} variant="outlined" sx={{ mt: 2 }}>
+                        Add to Cart
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </ThemeProvider>
+      );
 }

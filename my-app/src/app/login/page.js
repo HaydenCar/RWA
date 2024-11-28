@@ -45,6 +45,7 @@ async function runDBCallAsync(url) {
 
   return (
     <Container maxWidth="sm">
+    <img src="/logo.png" alt="Krispy Kreme" width="500" height="400"></img>
     <Box sx={{ height: '100vh' }} >
     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
     <TextField
