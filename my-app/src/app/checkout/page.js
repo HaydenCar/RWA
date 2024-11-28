@@ -1,4 +1,4 @@
-/*'use client';
+'use client';
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
@@ -103,4 +103,4 @@ export default function Page() {
         </Container>
       </ThemeProvider>
     );
-}*/
+}
