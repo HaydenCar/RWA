@@ -93,7 +93,7 @@ export default function Page() {
           </Box>
           <Container component="main" maxWidth="lg">
             <Typography variant="h4" gutterBottom sx={{ mt: 4 }}>
-              Dashboard
+              Our Menu
             </Typography>
             <Grid container spacing={3}>
               {data.map((item, i) => (

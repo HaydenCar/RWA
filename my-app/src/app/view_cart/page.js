@@ -19,6 +19,9 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 export default function Page() {
     const [data, setData] = useState(null)
     const [weather, setWeatherData] = useState(0)
@@ -59,55 +62,65 @@ export default function Page() {
     },
     });
     if (!weather) return <p>No weather</p>
+
+    const getImagePath = (name) => {
+        const imageMap = {
+          "chocolate doughnut": '/chocolateDonut.jpg',
+          "jam doughnut": '/jamDonut.jpg',
+        };
+        return imageMap[name] || '/logo.png'; // Fallback to a default image
+    };
+
     return (
-      <ThemeProvider theme={theme}>
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static">
-            <Toolbar>
-              <IconButton onClick={() => window.location = "/dashboard"}
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Krispy Kreme
-              </Typography>
-              <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
-                Today's temperature: {JSON.stringify(weather.temp)}
-              </Typography>
-              <Button onClick={() => window.location = "/checkout"} color="inherit">
-                Cart
-              </Button>
-            </Toolbar>
-          </AppBar>
-        </Box>
+            <ThemeProvider theme={theme}>
+                <Box sx={{ flexGrow: 1 }}>
+                    <AppBar position="static">
+                        <Toolbar>
+                            <IconButton
+                                onClick={() => window.location = "/dashboard"}
+                                size="large"
+                                edge="start"
+                                color="inherit"
+                                aria-label="menu"
+                                sx={{ mr: 2 }}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                                Krispy Kreme
+                            </Typography>
+                            <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
+                                Today's temperature: {JSON.stringify(weather.temp)}
+                            </Typography>
+                            <Button onClick={() => window.location = "/checkout"} color="inherit">
+                                Cart
+                            </Button>
+                        </Toolbar>
+                    </AppBar>
+                </Box>
 
-        <Container component="main" maxWidth="xs">
-          <div style={{ fontSize: '40px' }}>Shopping Cart</div>
-          <div>
-            {data.map((item, i) => (
-              <div style={{ padding: '20px' }} key={i}>
-                <p>Unique ID: {item._id}</p>
-                <p>
-                  {item.pname} - {item.price}
-                </p>
-                <Button
-                onClick={() => placeOrder(item.pname)}
-                variant="outlined"
-                >
-                Place Order
-                </Button>
-              </div>
-            ))}
-          </div>
-        </Container>
-        <Container>
-
+                <Container component="main" maxWidth="xs">
+                    <div style={{ fontSize: '40px' }}>Shopping Cart</div>
+                    <div>
+                        {data.map((item, i) => (
+                            <Card sx={{ maxWidth: 345 }} key={i}>
+                                <CardMedia
+                                    component="img"
+                                    height="140"
+                                    image={getImagePath(item.pname)} // Dynamically set image
+                                    alt={item.pname}
+                                />
+                                <CardContent>
+                                    <p>Unique ID: {item._id}</p>
+                                    <p>{item.pname} - {item.price}</p>
+                                    <Button onClick={() => placeOrder(item.pname)} variant="outlined">
+                                        Place Order
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
                 </Container>
-      </ThemeProvider>
+            </ThemeProvider>
     );
 }
