@@ -29,16 +29,27 @@ export default function Home() {
 async function runDBCallAsync(url) {
     const res = await fetch(url);
     const data = await res.json();
-    if(data.data== "true"){
 
-      console.log("login is valid!")
-      window.location="/dashboard"
+    if (data.data === true) {
+      console.log("Login is valid!");
+      console.log(data);
+
+      if (data.acc_type === 'customer') {
+        window.location = "/dashboard";
+      }
+      // Check if account type is 'manager'
+      else if (data.acc_type === 'manager') {
+        window.location = "/manager";
+      }
+      else {
+        console.log("Not a customer or manager account.");
+      }
 
     } else {
-      console.log("not valid  ")
+      console.log("Login not valid.");
     }
+}
 
-  }
 
 
 
@@ -83,9 +94,15 @@ async function runDBCallAsync(url) {
     >
       Sign In
     </Button>
-</Box>
-</Box>
-       </Container>
+
+    <Box sx={{ textAlign: 'center', mt: 2 }}>
+        <Link href="/register" variant="body2">
+          Need an account? Sign Up
+        </Link>
+    </Box>
+    </Box>
+    </Box>
+    </Container>
   ); // end return
 }
 

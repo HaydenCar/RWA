@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
 
 export default function Register() {
   const handleSubmit = (event) => {
@@ -25,7 +26,7 @@ export default function Register() {
     const data = await res.json();
     if (data.success === "true") {
       console.log("Registration successful!");
-      window.location = "/dashboard"; // Redirect to dashboard
+      window.location = "/login"; // Redirect to login
     } else {
       console.log("Registration failed:", data.error);
     }
@@ -64,6 +65,11 @@ export default function Register() {
           >
             Register
           </Button>
+          <Box sx={{ textAlign: 'center', mt: 2 }}>
+            <Link href="/login" variant="body2">
+              Have an account? "Log in"
+            </Link>
+          </Box>
         </Box>
       </Box>
     </Container>

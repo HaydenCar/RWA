@@ -29,10 +29,13 @@ export async function GET(req, res) {
   console.log('Found documents =>', findResult);
 
   let valid = false
+  let acc_type = "";
 
   if(findResult.length >0 ){
           valid = true;
           console.log("login valid")
+          const user = findResult[0];
+          acc_type = user.acc_type;
   } else {
         valid = false;
         console.log("login invalid")
@@ -40,5 +43,6 @@ export async function GET(req, res) {
 
  //==========================================================
   // at the end of the process we need to send something back.
-  return Response.json({ "data":"" + valid + ""})
+  return Response.json({ "data": valid,
+                         "acc_type": acc_type})
 }
