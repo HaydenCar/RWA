@@ -18,7 +18,7 @@ export default function Register() {
     console.log("Registering email:", email);
     console.log("Registering pass:", pass);
 
-    runDBCallAsync(`http://localhost:3000/api/newregister?email=${email}&pass=${pass}`);
+    runDBCallAsync(`/api/newregister?email=${email}&pass=${pass}`);
   };
 
   async function runDBCallAsync(url) {

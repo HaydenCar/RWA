@@ -29,11 +29,11 @@ export default function Page() {
     function putInCart(pname){
       console.log("putting in cart: " + pname)
 
-      fetch("http://localhost:3000/api/putInCart?pname="+pname);
+      fetch("/api/putInCart?pname="+pname);
     }
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/getProducts')
+        fetch('/api/getProducts')
 
         .then((res) => res.json())
 
@@ -43,7 +43,7 @@ export default function Page() {
 
         })
 
-        fetch('http://localhost:3000/api/getWeather')
+        fetch('/api/getWeather')
 
         .then((res) => res.json())
 

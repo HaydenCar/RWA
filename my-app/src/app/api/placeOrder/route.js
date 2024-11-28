@@ -4,7 +4,7 @@
 function putInCart(pname) {
     console.log("placing order: " + pname)
 
-    fetch("http://localhost:3000/api/placeOrder?pname=" + pname);
+    fetch("/api/placeOrder?pname=" + pname);
 }
 
 export async function GET(req, res) {
@@ -18,7 +18,7 @@ export async function GET(req, res) {
     console.log(pname);
     // =================================================
     const { MongoClient } = require('mongodb');
-    const url = 'mongodb+srv://root:vwuWHyQVPo818AoG@rwa.31tjb.mongodb.net/?retryWrites=true&w=majority&appName=RWA';
+    const url = process.env.DB_ADDRESS;
     const client = new MongoClient(url);
     const dbName = 'RWA'; // database name
 

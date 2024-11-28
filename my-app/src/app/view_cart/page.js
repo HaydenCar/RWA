@@ -29,11 +29,11 @@ export default function Page() {
     function placeOrder(data){
       console.log("Placing order: " + data)
 
-      fetch("http://localhost:3000/api/placeOrder?pname="+data);
+      fetch("/api/placeOrder?pname="+data);
     }
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/getCart')
+        fetch('/api/getCart')
 
         .then((res) => res.json())
 
@@ -43,7 +43,7 @@ export default function Page() {
 
         })
 
-        fetch('http://localhost:3000/api/getWeather')
+        fetch('/api/getWeather')
 
         .then((res) => res.json())
 
