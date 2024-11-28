@@ -1,6 +1,7 @@
 //
 // function for putting items into the shopping cart.
 //
+import {MongoClient} from 'mongodb'
 function putInCart(pname) {
     console.log("putting in cart: " + pname)
 
@@ -17,7 +18,6 @@ export async function GET(req, res) {
     const pname = searchParams.get('pname')
     console.log(pname);
     // =================================================
-    const { MongoClient } = require('mongodb');
     const url = process.env.DB_ADDRESS;
     const client = new MongoClient(url);
     const dbName = 'RWA'; // database name

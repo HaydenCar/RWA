@@ -1,11 +1,10 @@
+import {MongoClient} from 'mongodb'
 export async function GET(req, res) {
         // Make a note we are on
         // the api. This goes to the console.
 
         console.log("in the api page")
         // =================================================
-
-        const { MongoClient } = require('mongodb');
 
         const url = process.env.DB_ADDRESS;
 
