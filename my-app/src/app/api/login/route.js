@@ -13,7 +13,6 @@ export async function GET(req, res) {
   console.log(pass);
  // =================================================
 
-  const { MongoClient } = require('mongodb');
   const url = process.env.DB_ADDRESS;
 
   const client = new MongoClient(url);
