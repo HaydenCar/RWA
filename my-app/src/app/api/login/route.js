@@ -15,7 +15,7 @@ export async function GET(req, res) {
 
   const url = process.env.DB_ADDRESS;
 
-  const client = new MongoClient(url);
+  const client = new MongoClient('mongodb+srv://root:vwuWHyQVPo818AoG@rwa.31tjb.mongodb.net/?retryWrites=true&w=majority&appName=RWA');
 
   const dbName = 'RWA'; // database name
   await client.connect();

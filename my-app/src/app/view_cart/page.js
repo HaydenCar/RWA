@@ -92,7 +92,7 @@ export default function Page() {
 
                 <Container component="main" maxWidth="xs">
                     <Typography variant="h4" gutterBottom sx={{ mt: 4 }}>
-                                 Items in cart
+                                 <u>Items in cart</u>
                                 </Typography>
                     <div>
                         {data.map((item, i) => (
