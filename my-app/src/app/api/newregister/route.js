@@ -14,7 +14,7 @@ export async function GET(req, res) {
   console.log("Registering user with email:", email);
 
   const url = process.env.DB_ADDRESS;
-  const client = new MongoClient(url);
+  const client = new MongoClient('mongodb+srv://root:vwuWHyQVPo818AoG@rwa.31tjb.mongodb.net/?retryWrites=true&w=majority&appName=RWA');
   const dbName = 'RWA';
   await client.connect();
   console.log("Connected successfully to the database");
