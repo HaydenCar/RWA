@@ -74,17 +74,11 @@ export default function Page() {
     return (
             <ThemeProvider theme={theme}>
                 <Box sx={{ flexGrow: 1 }}>
-                    <AppBar position="static">
+                    <AppBar position="static" sx={{ bgcolor: "green" }}>
                         <Toolbar>
-                            <IconButton
-                                onClick={() => window.location = "/dashboard"}
-                                size="large"
-                                edge="start"
-                                color="inherit"
-                                aria-label="menu"
-                                sx={{ mr: 2 }}
-                            >
-                                <MenuIcon />
+                            <IconButton onClick={() => window.location = "/dashboard"} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+                              <img src="/logo.png" alt="Krispy Kreme" width="75" height="75"></img>
+
                             </IconButton>
                             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                                 Krispy Kreme
@@ -92,15 +86,14 @@ export default function Page() {
                             <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
                                 Today's temperature: {JSON.stringify(weather.temp)}
                             </Typography>
-                            <Button onClick={() => window.location = "/checkout"} color="inherit">
-                                Cart
-                            </Button>
                         </Toolbar>
                     </AppBar>
                 </Box>
 
                 <Container component="main" maxWidth="xs">
-                    <div style={{ fontSize: '40px' }}>Shopping Cart</div>
+                    <Typography variant="h4" gutterBottom sx={{ mt: 4 }}>
+                                 Items in cart
+                                </Typography>
                     <div>
                         {data.map((item, i) => (
                             <Card sx={{ maxWidth: 345 }} key={i}>
@@ -111,9 +104,9 @@ export default function Page() {
                                     alt={item.pname}
                                 />
                                 <CardContent>
-                                    <p>Unique ID: {item._id}</p>
+                                    <p>item: {i + 1}</p>
                                     <p>{item.pname} - {item.price}</p>
-                                    <Button onClick={() => placeOrder(item.pname)} variant="outlined">
+                                    <Button onClick={() => placeOrder(data)} variant="outlined">
                                         Place Order
                                     </Button>
                                 </CardContent>
