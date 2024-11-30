@@ -27,13 +27,13 @@ export default function Page() {
     const [weather, setWeatherData] = useState(0)
 
     function putInCart(pname){
-      console.log("putting in cart: " + pname)
+      console.log("getting orders")
 
-      fetch("/api/putInCart?pname="+pname);
+      //fetch("/api/getOrders);
     }
 
     useEffect(() => {
-        fetch('/api/getProducts')
+        fetch('/api/getOrders')
 
         .then((res) => res.json())
 
@@ -86,14 +86,13 @@ export default function Page() {
                   Today's temperature: {weather.temp}°C
                 </Typography>
                 <Button onClick={() => window.location = "/view_cart"} color="inherit">
-                  Cart
                 </Button>
               </Toolbar>
             </AppBar>
           </Box>
           <Container component="main" maxWidth="lg">
             <Typography variant="h4" gutterBottom sx={{ mt: 4 }}>
-              Our Menu
+                  <u>Orders</u>
             </Typography>
             <Grid container spacing={3}>
               {data.map((item, i) => (
@@ -110,11 +109,11 @@ export default function Page() {
                         {item.pname}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        €{item.price}
+                        Ordered by: {item.username}
                       </Typography>
-                      <Button onClick={() => putInCart(item.pname)} variant="outlined" sx={{ mt: 2 }}>
-                        Add to Cart
-                      </Button>
+                      <Typography variant="body2" color="text.secondary">
+                        price: €1
+                      </Typography>
                     </CardContent>
                   </Card>
                 </Grid>
